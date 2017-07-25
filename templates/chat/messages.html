@@ -1,0 +1,4 @@
+{% for comm in comments_set %}
+        <b>{{ comm.author }} </b> at <i>{{ comm.pub_date }} </i>: {{ comm.comment }}
+        <br>
+    {% endfor %}

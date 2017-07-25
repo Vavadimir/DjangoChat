@@ -1,0 +1,16 @@
+
+<h1>POST YOUR COMMENT</h1>
+
+<form action="{% url 'comments' %}" method="post">
+    {% csrf_token %}
+    Your comment: <input type="text" name="comment">
+    <br/>
+    <input type="submit", value="POST">
+</form>
+<br/>
+<a href="{% url 'chat' %}">all comments</a>
+<form action="{% url 'logout_us' %}" method="POST">
+    {% csrf_token %}
+To exit:
+<input type="submit" value="logout">
+</form>

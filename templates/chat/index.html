@@ -1,0 +1,12 @@
+<h1>FILL THE FORM</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'pages' %}" method="post">
+{% csrf_token %}
+        Your Name: <input type="text" name="name">
+    <br/>
+    Your Password: <input type="password" name="passw">
+    <br/>
+<input type="submit" value="go" />
+</form>
