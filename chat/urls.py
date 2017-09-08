@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^chat$', views.chat, name='chat'),
     url(r'^logout_us$', views.logout_us, name='logout_us'),
     url(r'^chatbootstrap$', views.chatbootstrap, name='chatbootstrap'),
-    url(r'^messages$', views.messages, name='messages')
+    url(r'^messages$', views.messages, name='messages'),
+    url(r'^choice_page$', views.choice_page, name='choice_page')
 ]
