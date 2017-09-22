@@ -5,35 +5,19 @@ from django.http import HttpResponse, JsonResponse
 from .models import Comments
 from django.utils import timezone
 
-def index(request):
-    #user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
 
-    #return HttpResponse(User.objects.all().values_list('username', flat=True))
-    #return HttpResponse(User.objects.all().values_list('username'))
-    #comment = Comments(request.user.username, pub_date=timezone.now(), comment="gg")
-    #request.user.objects.comments_set(pub_date=timezone.now(), comment="gg")
+def index(request):
+    """Start page (redirecting when is not authenticated)"""
 
     if request.user.is_authenticated():
-        #return render(request, 'chat/comments.html')
         return redirect('choice_page')
     else:
         return render(request, 'chat/index.html')
 
-    '''
-    else:
-        user = authenticate(username=name, password=passw)
-        return HttpResponse(name,' ',passw)
-
-        if user is not None:
-            return HttpResponse('Logged')
-        else:
-            if name in User.objects.all().values_list('username', flat=True):
-                return HttpResponse('Bad pass')
-            else:
-                return render(request, 'chat/index.html')
-        '''
 
 def pages(request):
+    """Redirect to chosen chat if user is authenticated"""
+
     try:
         name = request.POST['name']
         passw = request.POST['passw']
@@ -56,7 +40,10 @@ def pages(request):
                 login(request, user)
                 return redirect('choice_page')
 
+
 def comments(request):
+    """Post the new message to a chat"""
+
     try:
         comm = request.POST['comment']
     except:
@@ -70,7 +57,10 @@ def comments(request):
         Comments.save(cmnt)
         return redirect('chat')
 
+
 def chat(request):
+    """Get the simple chat"""
+
     if request.user.is_authenticated():
         return render(request, 'chat/chat.html', {'comments_set': Comments.objects.all()})
     else:
@@ -78,6 +68,8 @@ def chat(request):
 
 
 def chatbootstrap(request):
+    """Get the real-time chat (instant messaging)"""
+
     if request.user.is_authenticated():
         s = Comments.objects.all()
         if request.POST:
@@ -91,12 +83,16 @@ def chatbootstrap(request):
         return redirect('index')
 
 
-    #return HttpResponse(Comments.objects.all[0].author)
 def messages(request):
+    """Get all messages in chat"""
+
     s = Comments.objects.all()
     return render(request, 'chat/messages.html', {'comments_set': s})
 
+
 def choice_page(request):
+    """Choice of chat"""
+
     if request.user.is_authenticated():
         return render(request, 'chat/choice_page.html')
     else:
@@ -104,5 +100,7 @@ def choice_page(request):
 
 
 def logout_us(request):
+    """Logout the active user"""
+
     logout(request)
     return redirect('index')
